@@ -6,13 +6,22 @@ const leadRoutes = require('./routes/leadRoute');
 require("dotenv").config();
 const path = require('path');
 
-app.use(
-  cors({
-    origin: [/^http:\/\/localhost:\d+$/, "http://localhost:3000","https://tkk40c8gg8oko0s0o04s48cc.srv-01.purezzatechnologies.com","https://zosgo88k0gkco4kww8gc4gkw.srv-01.purezzatechnologies.com"],
-    credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
-  })
-);
+const allowedOrigins = ['https://crms-frontend-sigma.vercel.app'];
+
+app.use(cors({
+  origin: allowedOrigins,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  credentials: true, // Allow cookies if necessary
+}));
+app.options('*', cors());
+
+// app.use(
+//   cors({
+//     origin: [/^http:\/\/localhost:\d+$/, "http://localhost:3000","https://tkk40c8gg8oko0s0o04s48cc.srv-01.purezzatechnologies.com","https://zosgo88k0gkco4kww8gc4gkw.srv-01.purezzatechnologies.com"],
+//     credentials: true,
+//     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+//   })
+// );
 app.use('/public', express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 
